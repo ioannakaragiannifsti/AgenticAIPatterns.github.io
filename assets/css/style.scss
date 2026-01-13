@@ -1,7 +1,10 @@
 ---
 ---
 
-@import "{{ site.theme }}";
+@import "minima";
+
+/* test line */
+body { border-top: 10px solid red !important; }
 
 /* Wider layout */
 .wrapper { max-width: 1150px; }
