@@ -1,0 +1,4 @@
+- repo: "https://github.com/some/repo"
+  extraction: "Type 1"
+  paper: "https://arxiv.org/abs/xxxx.xxxxx"
+  patterns: ["Reflection", "Planning", "Tool-use"]
