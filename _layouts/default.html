@@ -4,12 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ page.title }} | {{ site.title }}</title>
-    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=2' | relative_url }}">
+
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=7' | relative_url }}">
   </head>
 
   <body>
     <header class="topbar">
-      <div class="wrapper topbar-inner">
+      <div class="container topbar-inner">
         <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
         <nav class="nav">
           <a href="{{ '/' | relative_url }}">Home</a>
@@ -19,11 +20,11 @@
       </div>
     </header>
 
-    <main class="wrapper">
-  <div class="page">
-    {{ content }}
-  </div>
-</main>
+    <main class="container">
+      <div class="page">
+        {{ content }}
+      </div>
+    </main>
   </body>
 </html>
 
