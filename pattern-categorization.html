@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pattern Categorization</title>
+
+  <style>
+    :root{
+      --bg:#0b0b0f;
+      --panel:#10101a;
+      --text:#e9e9f2;
+      --muted:#b7b7c6;
+      --border:rgba(255,255,255,.10);
+      --shadow:0 10px 30px rgba(0,0,0,.45);
+      --radius:16px;
+      --max:1100px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(255,80,180,.10), transparent 60%),
+                  radial-gradient(900px 500px at 85% 10%, rgba(80,150,255,.10), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+    }
+    a{ color:inherit; text-decoration:none; }
+    header{
+      position:sticky;
+      top:0;
+      z-index:10;
+      background: rgba(11,11,15,.75);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    .brand-dot{
+      width:10px; height:10px; border-radius:999px;
+      background: linear-gradient(135deg, #ff5cc8, #5aa7ff);
+      box-shadow: 0 0 0 4px rgba(255,92,200,.12);
+    }
+    .navlinks{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-weight:600;
+      font-size:14px;
+    }
+    .navlinks a{ padding:8px 10px; border-radius:10px; }
+    .navlinks a:hover{ background: rgba(255,255,255,.06); color:var(--text); }
+
+    main{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 18px 60px;
+    }
+    .hero{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin:18px 0 22px;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(26px, 4vw, 40px);
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      line-height:1.5;
+      max-width: 72ch;
+    }
+
+    .toolbar{
+      margin:18px 0 18px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .search{
+      flex: 1 1 260px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+    .search input{
+      width:100%;
+      background:transparent;
+      border:0;
+      outline:0;
+      color:var(--text);
+      font-size:14px;
+    }
+    .count{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:600;
+      padding:8px 10px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      border-radius: 12px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .card{
+      grid-column: span 6;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, background .15s ease;
+      cursor:pointer;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.05);
+    }
+    .thumb{
+      width:100%;
+      aspect-ratio: 16 / 9;
+      background: rgba(0,0,0,.25);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      padding:10px;
+      background: #000;
+    }
+    .meta{
+      padding:12px 14px 14px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+    .title{
+      font-weight:800;
+      margin:0;
+      font-size:15px;
+      line-height:1.25;
+    }
+    .desc{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
+    }
+    .pill{
+      flex:0 0 auto;
+      font-size:12px;
+      font-weight:800;
+      color:#0b0b0f;
+      background: linear-gradient(135deg, #ff5cc8, #5aa7ff);
+      padding:6px 9px;
+      border-radius:999px;
+      margin-top:2px;
+    }
+
+    @media (max-width: 900px){
+      .card{ grid-column: span 12; }
+    }
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.78);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:50;
+    }
+    .lightbox[aria-hidden="false"]{ display:flex; }
+    .lightbox-inner{
+      width:min(1100px, 96vw);
+      background: rgba(16,16,26,.96);
+      border:1px solid var(--border);
+      border-radius: 18px;
+      overflow:hidden;
+      box-shadow: 0 20px 70px rgba(0,0,0,.65);
+    }
+    .lightbox-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      border-bottom:1px solid var(--border);
+    }
+    .lightbox-top h2{
+      margin:0;
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:800;
+      padding:8px 10px;
+      border-radius: 12px;
+      cursor:pointer;
+    }
+    .btn:hover{ background: rgba(255,255,255,.08); }
+    .lightbox-img{
+      background:#000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px;
+    }
+    .lightbox-img img{
+      width:100%;
+      height:min(78vh, 820px);
+      object-fit:contain;
+      display:block;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Pattern Browser</span>
+      </div>
+
+      <nav class="navlinks" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="pattern-categorization.html" style="color:var(--text); background: rgba(255,255,255,.06);">Pattern Categorization</a>
+        <a href="browse.html">Browse</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Pattern Categorization</h1>
+      <p class="subtitle">
+        Browse the PNG overviews for each pattern category. Click any card to open a larger view.
+      </p>
+    </section>
+
+    <section class="toolbar" aria-label="Controls">
+      <div class="search" role="search">
+        <span aria-hidden="true">🔎</span>
+        <input id="q" type="search" placeholder="Search categories (e.g., cognitive, memory, planning)" autocomplete="off" />
+      </div>
+      <div class="count" id="count">0 categories</div>
+    </section>
+
+    <section class="grid" id="grid" aria-label="Category gallery"></section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image preview">
+    <div class="lightbox-inner">
+      <div class="lightbox-top">
+        <h2 id="lbTitle">Preview</h2>
+        <button class="btn" id="lbClose" type="button">Close</button>
+      </div>
+      <div class="lightbox-img">
+        <img id="lbImg" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1) Update this list to match your PNGs.
+    // path is relative to THIS html file.
+    const CATEGORIES = [
+      {
+        title: "Cognitive",
+        path: "assets/img/pattern-categorization/Cognitive.png",
+        tag: "Graph",
+        description: "Category overview network visualization."
+      },
+      // { title: "Memory", path: "assets/img/pattern-categorization/Memory.png", tag: "Graph", description: "..." },
+      // { title: "Planning", path: "assets/img/pattern-categorization/Planning.png", tag: "Graph", description: "..." },
+    ];
+
+    const grid = document.getElementById("grid");
+    const q = document.getElementById("q");
+    const count = document.getElementById("count");
+
+    const lightbox = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbTitle = document.getElementById("lbTitle");
+    const lbClose = document.getElementById("lbClose");
+
+    function cardTemplate(item){
+      const el = document.createElement("article");
+      el.className = "card";
+      el.tabIndex = 0;
+      el.setAttribute("role", "button");
+      el.setAttribute("aria-label", `Open ${item.title}`);
+
+      el.innerHTML = `
+        <div class="thumb">
+          <img src="${item.path}" alt="${item.title} category visualization" loading="lazy" />
+        </div>
+        <div class="meta">
+          <div>
+            <p class="title">${item.title}</p>
+            <p class="desc">${item.description || ""}</p>
+          </div>
+          <div class="pill">${item.tag || "PNG"}</div>
+        </div>
+      `;
+
+      el.addEventListener("click", () => openLightbox(item));
+      el.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          openLightbox(item);
+        }
+      });
+      return el;
+    }
+
+    function render(list){
+      grid.innerHTML = "";
+      list.forEach(item => grid.appendChild(cardTemplate(item)));
+      count.textContent = `${list.length} ${list.length === 1 ? "category" : "categories"}`;
+    }
+
+    function openLightbox(item){
+      lbTitle.textContent = item.title;
+      lbImg.src = item.path;
+      lbImg.alt = `${item.title} category visualization`;
+      lightbox.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLightbox(){
+      lightbox.setAttribute("aria-hidden", "true");
+      lbImg.src = "";
+      lbImg.alt = "";
+    }
+
+    lbClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+      if(e.target === lightbox) closeLightbox();
+    });
+    window.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeLightbox();
+    });
+
+    q.addEventListener("input", () => {
+      const term = q.value.trim().toLowerCase();
+      if(!term) return render(CATEGORIES);
+
+      const filtered = CATEGORIES.filter(x =>
+        (x.title || "").toLowerCase().includes(term) ||
+        (x.description || "").toLowerCase().includes(term) ||
+        (x.tag || "").toLowerCase().includes(term)
+      );
+      render(filtered);
+    });
+
+    render(CATEGORIES);
+  </script>
+</body>
+</html>
