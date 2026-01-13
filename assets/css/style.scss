@@ -67,3 +67,28 @@ tbody tr:hover {
 td a {
   word-break: break-word;
 }
+.topbar {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 18px;
+  color: #111827;
+}
+
+.nav a {
+  margin-left: 14px;
+  color: #111827;
+  font-weight: 600;
+}
+
