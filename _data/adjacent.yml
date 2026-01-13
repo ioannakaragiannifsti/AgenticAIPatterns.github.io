@@ -1,0 +1,4 @@
+- repo: "https://github.com/google/oss-fuzz-gen"
+  extraction: "GitHub"
+  paper: ""
+  patterns: ["TBD"]
