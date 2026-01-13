@@ -1,111 +1,84 @@
----
----
-
-/* Global */
-:root{
-  --bg: #fbf6ee;      /* light cream */
-  --text: #1f2937;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --banner: #e9ddcf;  /* slightly darker cream */
-  --link: #1d4ed8;
+/* Subtle page depth */
+.wrapper {
+  max-width: 1080px;
 }
 
-html, body { height: 100%; }
+/* Make content feel like a “page” */
+.page {
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 18px;
+  padding: 28px 28px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+}
 
-body{
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+/* Better headline spacing */
+h1 {
+  font-size: 44px;
+  margin: 6px 0 10px;
+}
+
+p {
   font-size: 16px;
-  line-height: 1.7;
-  color: var(--text);
-  background: var(--bg);
+  color: #243040;
 }
 
-/* Layout container */
-.wrapper{
-  max-width: 1150px;
-  margin: 0 auto;
-  padding: 28px 22px;
-}
-
-/* Top banner */
-.topbar{
-  position: sticky;
-  top: 0;
-  background: var(--banner);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
-.topbar-inner{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.brand{
-  font-weight: 800;
-  font-size: 18px;
-  color: var(--text);
-}
-
-.nav a{
-  margin-left: 14px;
-  color: var(--text);
-  font-weight: 700;
-}
-
-.nav a:hover{
-  text-decoration: underline;
-}
-
-/* Headings */
-h1{
-  font-size: 40px;
-  line-height: 1.15;
-  margin: 10px 0 14px;
-}
-
-h2{
-  font-size: 26px;
-  margin: 26px 0 10px;
-}
-
-p{ margin: 0 0 14px; }
-
-/* Links */
-a{ color: var(--link); text-decoration: none; }
-a:hover{ text-decoration: underline; }
-
-/* Tables */
-table{
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  background: rgba(255,255,255,0.72);
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
   margin-top: 16px;
 }
 
-thead th{
-  background: rgba(255,255,255,0.85);
-  padding: 12px 14px;
-  text-align: left;
-  font-weight: 800;
-  font-size: 14px;
-  border-bottom: 1px solid var(--border);
+.card {
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 16px;
+  padding: 16px 16px;
 }
 
-tbody td{
-  padding: 12px 14px;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  vertical-align: top;
-  font-size: 15px;
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
 }
 
-tbody tr:nth-child(even){ background: rgba(255,255,255,0.55); }
-tbody tr:hover{ background: rgba(255,255,255,0.9); }
+.card p {
+  margin: 0;
+  color: #243040;
+}
 
-td a{ word-break: break-word; }
+/* Browse links as buttons */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: rgba(255,255,255,0.75);
+  font-weight: 700;
+  color: #111827;
+}
+
+.btn:hover {
+  background: rgba(255,255,255,0.95);
+  text-decoration: none;
+}
+
+/* Improve top banner contrast slightly */
+.topbar {
+  background: #e2d3c2;
+}
+
+/* Responsive: stack cards on mobile */
+@media (max-width: 900px) {
+  .cards { grid-template-columns: 1fr; }
+  h1 { font-size: 36px; }
+}
 
