@@ -14,4 +14,6 @@ title: Home
 <div class="actions">
   <a class="btn" href="{{ site.baseurl }}/agentic.html">Agentic AI repositories</a>
   <a class="btn" href="{{ site.baseurl }}/adjacent.html">Agent-adjacent AI repositories</a>
+  <a href="pattern-categorization.html">Pattern Categorization</a>
+
 </div>
