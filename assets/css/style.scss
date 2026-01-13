@@ -1,84 +1,153 @@
-/* Subtle page depth */
-.wrapper {
-  max-width: 1080px;
+---
+---
+
+:root{
+  --bg: #fbf6ee;         /* cream */
+  --page: rgba(255,255,255,0.72);
+  --banner: #e2d3c2;     /* darker cream */
+  --text: #18202a;
+  --muted: #4b5563;
+  --border: rgba(0,0,0,0.10);
+  --link: #1d4ed8;
 }
 
-/* Make content feel like a “page” */
-.page {
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 18px;
-  padding: 28px 28px;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.06);
-}
+*{ box-sizing: border-box; }
 
-/* Better headline spacing */
-h1 {
-  font-size: 44px;
-  margin: 6px 0 10px;
-}
+html, body{ height: 100%; }
 
-p {
-  font-size: 16px;
-  color: #243040;
-}
-
-/* Cards */
-.cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-top: 16px;
-}
-
-.card {
-  background: rgba(255,255,255,0.75);
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 16px;
-  padding: 16px 16px;
-}
-
-.card h3 {
-  margin: 0 0 8px;
-  font-size: 18px;
-}
-
-.card p {
+body{
   margin: 0;
-  color: #243040;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+  font-size: 16px;
 }
 
-/* Browse links as buttons */
-.actions {
+.container{
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 22px;
+}
+
+/* Top nav */
+.topbar{
+  background: var(--banner);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+}
+
+.topbar-inner{
   display: flex;
-  gap: 10px;
-  margin-top: 14px;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.btn {
+.brand{
+  font-weight: 800;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav a{
+  margin-left: 14px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.nav a:hover{ text-decoration: underline; opacity: 1; }
+
+/* Content card */
+.page{
+  background: var(--page);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+
+/* Typography */
+h1{
+  font-size: 42px;
+  line-height: 1.15;
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
+}
+
+h2{
+  margin: 26px 0 10px;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+p{ margin: 0 0 14px; color: var(--text); }
+.small{ color: var(--muted); }
+
+/* Links */
+a{ color: var(--link); }
+a:hover{ text-decoration: underline; }
+
+/* Button links (home) */
+.actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn{
   display: inline-block;
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.10);
+  border: 1px solid var(--border);
   background: rgba(255,255,255,0.75);
-  font-weight: 700;
-  color: #111827;
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--text);
 }
 
-.btn:hover {
+.btn:hover{
   background: rgba(255,255,255,0.95);
   text-decoration: none;
 }
 
-/* Improve top banner contrast slightly */
-.topbar {
-  background: #e2d3c2;
+/* Tables (works for HTML tables) */
+table{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.80);
+  margin-top: 14px;
 }
 
-/* Responsive: stack cards on mobile */
-@media (max-width: 900px) {
-  .cards { grid-template-columns: 1fr; }
-  h1 { font-size: 36px; }
+thead th{
+  background: rgba(255,255,255,0.90);
+  font-weight: 800;
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+tbody td{
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  vertical-align: top;
+  font-size: 15px;
+}
+
+tbody tr:nth-child(even){ background: rgba(255,255,255,0.55); }
+tbody tr:hover{ background: rgba(255,255,255,0.95); }
+
+@media (max-width: 900px){
+  h1{ font-size: 34px; }
+  .page{ padding: 18px; }
 }
 
